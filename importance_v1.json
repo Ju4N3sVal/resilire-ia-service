@@ -1,0 +1,122 @@
+[
+  {
+    "variable": "bajo_logro_educativo",
+    "dimension": "Educación",
+    "anova_f": 54.1,
+    "p_valor": 3.07e-22,
+    "importancia_permutacion": 0.2372,
+    "importancia_arbol": 0.3683
+  },
+  {
+    "variable": "paredes_inadecuadas",
+    "dimension": "Vivienda y servicios",
+    "anova_f": 31.75,
+    "p_valor": 5.66e-16,
+    "importancia_permutacion": 0.0,
+    "importancia_arbol": 0.0
+  },
+  {
+    "variable": "trabajo_informal",
+    "dimension": "Trabajo",
+    "anova_f": 29.31,
+    "p_valor": 3.91e-15,
+    "importancia_permutacion": 0.0,
+    "importancia_arbol": 0.0
+  },
+  {
+    "variable": "inasistencia_escolar",
+    "dimension": "Niñez y juventud",
+    "anova_f": 22.99,
+    "p_valor": 9.19e-13,
+    "importancia_permutacion": 0.3469,
+    "importancia_arbol": 0.2767
+  },
+  {
+    "variable": "sin_aseguramiento_salud",
+    "dimension": "Salud",
+    "anova_f": 21.63,
+    "p_valor": 3.28e-12,
+    "importancia_permutacion": 0.0,
+    "importancia_arbol": 0.0
+  },
+  {
+    "variable": "hacinamiento_critico",
+    "dimension": "Vivienda y servicios",
+    "anova_f": 19.71,
+    "p_valor": 2.12e-11,
+    "importancia_permutacion": 0.1862,
+    "importancia_arbol": 0.2819
+  },
+  {
+    "variable": "sin_fuente_agua_mejorada",
+    "dimension": "Vivienda y servicios",
+    "anova_f": 17.08,
+    "p_valor": 3.18e-10,
+    "importancia_permutacion": 0.0,
+    "importancia_arbol": 0.0
+  },
+  {
+    "variable": "rezago_escolar",
+    "dimension": "Niñez y juventud",
+    "anova_f": 16.34,
+    "p_valor": 6.99e-10,
+    "importancia_permutacion": 0.0,
+    "importancia_arbol": 0.0
+  },
+  {
+    "variable": "analfabetismo",
+    "dimension": "Educación",
+    "anova_f": 15.3,
+    "p_valor": 2.2e-09,
+    "importancia_permutacion": 0.0,
+    "importancia_arbol": 0.0
+  },
+  {
+    "variable": "trabajo_infantil",
+    "dimension": "Niñez y juventud",
+    "anova_f": 13.34,
+    "p_valor": 2.04e-08,
+    "importancia_permutacion": 0.0,
+    "importancia_arbol": 0.0
+  },
+  {
+    "variable": "pisos_inadecuados",
+    "dimension": "Vivienda y servicios",
+    "anova_f": 12.71,
+    "p_valor": 4.31e-08,
+    "importancia_permutacion": 0.0818,
+    "importancia_arbol": 0.0375
+  },
+  {
+    "variable": "tasa_dependencia",
+    "dimension": "Trabajo",
+    "anova_f": 11.7,
+    "p_valor": 1.45e-07,
+    "importancia_permutacion": 0.0,
+    "importancia_arbol": 0.0
+  },
+  {
+    "variable": "eliminacion_excretas",
+    "dimension": "Vivienda y servicios",
+    "anova_f": 9.45,
+    "p_valor": 2.46e-06,
+    "importancia_permutacion": 0.0,
+    "importancia_arbol": 0.0
+  },
+  {
+    "variable": "barreras_primera_infancia",
+    "dimension": "Niñez y juventud",
+    "anova_f": 9.38,
+    "p_valor": 2.72e-06,
+    "importancia_permutacion": 0.0,
+    "importancia_arbol": 0.0
+  },
+  {
+    "variable": "barreras_acceso_salud",
+    "dimension": "Salud",
+    "anova_f": 4.11,
+    "p_valor": 0.00436,
+    "importancia_permutacion": 0.0375,
+    "importancia_arbol": 0.0357
+  }
+]

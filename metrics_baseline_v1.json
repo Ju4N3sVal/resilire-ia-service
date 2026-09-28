@@ -1,0 +1,120 @@
+{
+  "model_version_id": "baseline_kmeans_v1",
+  "tipo": "Segmentación no supervisada (K-means) — no es predicción del IPM",
+  "entrenado_utc": "2026-09-28T05:55:37+00:00",
+  "sklearn": "1.8.0",
+  "fuente": "DANE · Medida de pobreza multidimensional municipal de fuente censal (CNPV 2018)",
+  "archivo_fuente": "anexo-censal-pobreza-municipal-2018.xlsx",
+  "sha256_fuente": "a3ac3a60498ad1b19a9aa64e27c8810e4251377ce93effcf7d53fe756f8c826f",
+  "unidad": "municipio",
+  "universo": "Santander",
+  "n_municipios": 87,
+  "features": [
+    "analfabetismo",
+    "bajo_logro_educativo",
+    "barreras_primera_infancia",
+    "inasistencia_escolar",
+    "rezago_escolar",
+    "trabajo_infantil",
+    "barreras_acceso_salud",
+    "sin_aseguramiento_salud",
+    "tasa_dependencia",
+    "trabajo_informal",
+    "hacinamiento_critico",
+    "eliminacion_excretas",
+    "paredes_inadecuadas",
+    "pisos_inadecuados",
+    "sin_fuente_agua_mejorada"
+  ],
+  "k": 5,
+  "semilla": 42,
+  "n_init": 20,
+  "criterio_k": "Máximo silhouette en k=2..5",
+  "clusters_ordenados_por": "IPM medio ascendente (0 = menor incidencia)",
+  "seleccion_k": [
+    {
+      "k": 2,
+      "silhouette": 0.1653,
+      "inercia": 1055.64,
+      "davies_bouldin": 1.7996,
+      "calinski_harabasz": 20.08,
+      "tamanos": [
+        57,
+        30
+      ]
+    },
+    {
+      "k": 3,
+      "silhouette": 0.1674,
+      "inercia": 914.9,
+      "davies_bouldin": 1.8692,
+      "calinski_harabasz": 17.91,
+      "tamanos": [
+        44,
+        28,
+        15
+      ]
+    },
+    {
+      "k": 4,
+      "silhouette": 0.1733,
+      "inercia": 816.25,
+      "davies_bouldin": 1.6335,
+      "calinski_harabasz": 16.57,
+      "tamanos": [
+        43,
+        18,
+        15,
+        11
+      ]
+    },
+    {
+      "k": 5,
+      "silhouette": 0.1782,
+      "inercia": 720.72,
+      "davies_bouldin": 1.4779,
+      "calinski_harabasz": 16.62,
+      "tamanos": [
+        39,
+        20,
+        11,
+        10,
+        7
+      ]
+    }
+  ],
+  "k_seleccionado": {
+    "k": 5,
+    "silhouette": 0.1782,
+    "inercia": 720.72,
+    "davies_bouldin": 1.4779,
+    "calinski_harabasz": 16.62,
+    "tamanos": [
+      39,
+      20,
+      11,
+      10,
+      7
+    ]
+  },
+  "estabilidad": {
+    "metodo": "Bootstrap (100 remuestreos) · ARI frente a la partición de referencia",
+    "ari_media": 0.498,
+    "ari_p05": 0.2402,
+    "ari_p95": 0.7926
+  },
+  "modelo_sustituto": {
+    "descripcion": "Árbol de decisión (profundidad 3) que reproduce los grupos; mide qué tan explicable es la segmentación",
+    "validacion": "StratifiedKFold(5), semilla 42",
+    "accuracy": 0.7013,
+    "accuracy_desv": 0.0415,
+    "precision_macro": 0.6999,
+    "recall_macro": 0.6519,
+    "f1_macro": 0.6426
+  },
+  "calidad": {
+    "duplicados_codigo": 0,
+    "faltantes_total": 0,
+    "fuera_rango_total": 0
+  }
+}

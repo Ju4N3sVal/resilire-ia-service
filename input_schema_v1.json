@@ -1,0 +1,128 @@
+{
+  "version": "input_schema_v1",
+  "tipo": "object",
+  "campos": {
+    "analfabetismo": {
+      "tipo": "number",
+      "min": 0,
+      "max": 100,
+      "unidad": "% de hogares",
+      "dimension": "Educación"
+    },
+    "bajo_logro_educativo": {
+      "tipo": "number",
+      "min": 0,
+      "max": 100,
+      "unidad": "% de hogares",
+      "dimension": "Educación"
+    },
+    "barreras_primera_infancia": {
+      "tipo": "number",
+      "min": 0,
+      "max": 100,
+      "unidad": "% de hogares",
+      "dimension": "Niñez y juventud"
+    },
+    "inasistencia_escolar": {
+      "tipo": "number",
+      "min": 0,
+      "max": 100,
+      "unidad": "% de hogares",
+      "dimension": "Niñez y juventud"
+    },
+    "rezago_escolar": {
+      "tipo": "number",
+      "min": 0,
+      "max": 100,
+      "unidad": "% de hogares",
+      "dimension": "Niñez y juventud"
+    },
+    "trabajo_infantil": {
+      "tipo": "number",
+      "min": 0,
+      "max": 100,
+      "unidad": "% de hogares",
+      "dimension": "Niñez y juventud"
+    },
+    "barreras_acceso_salud": {
+      "tipo": "number",
+      "min": 0,
+      "max": 100,
+      "unidad": "% de hogares",
+      "dimension": "Salud"
+    },
+    "sin_aseguramiento_salud": {
+      "tipo": "number",
+      "min": 0,
+      "max": 100,
+      "unidad": "% de hogares",
+      "dimension": "Salud"
+    },
+    "tasa_dependencia": {
+      "tipo": "number",
+      "min": 0,
+      "max": 100,
+      "unidad": "% de hogares",
+      "dimension": "Trabajo"
+    },
+    "trabajo_informal": {
+      "tipo": "number",
+      "min": 0,
+      "max": 100,
+      "unidad": "% de hogares",
+      "dimension": "Trabajo"
+    },
+    "hacinamiento_critico": {
+      "tipo": "number",
+      "min": 0,
+      "max": 100,
+      "unidad": "% de hogares",
+      "dimension": "Vivienda y servicios"
+    },
+    "eliminacion_excretas": {
+      "tipo": "number",
+      "min": 0,
+      "max": 100,
+      "unidad": "% de hogares",
+      "dimension": "Vivienda y servicios"
+    },
+    "paredes_inadecuadas": {
+      "tipo": "number",
+      "min": 0,
+      "max": 100,
+      "unidad": "% de hogares",
+      "dimension": "Vivienda y servicios"
+    },
+    "pisos_inadecuados": {
+      "tipo": "number",
+      "min": 0,
+      "max": 100,
+      "unidad": "% de hogares",
+      "dimension": "Vivienda y servicios"
+    },
+    "sin_fuente_agua_mejorada": {
+      "tipo": "number",
+      "min": 0,
+      "max": 100,
+      "unidad": "% de hogares",
+      "dimension": "Vivienda y servicios"
+    }
+  },
+  "requeridos": [
+    "analfabetismo",
+    "bajo_logro_educativo",
+    "barreras_primera_infancia",
+    "inasistencia_escolar",
+    "rezago_escolar",
+    "trabajo_infantil",
+    "barreras_acceso_salud",
+    "sin_aseguramiento_salud",
+    "tasa_dependencia",
+    "trabajo_informal",
+    "hacinamiento_critico",
+    "eliminacion_excretas",
+    "paredes_inadecuadas",
+    "pisos_inadecuados",
+    "sin_fuente_agua_mejorada"
+  ]
+}

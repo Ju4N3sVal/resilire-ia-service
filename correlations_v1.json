@@ -1,0 +1,92 @@
+[
+  {
+    "variable": "bajo_logro_educativo",
+    "dimension": "Educación",
+    "pearson": 0.8,
+    "spearman": 0.75
+  },
+  {
+    "variable": "sin_fuente_agua_mejorada",
+    "dimension": "Vivienda y servicios",
+    "pearson": 0.71,
+    "spearman": 0.72
+  },
+  {
+    "variable": "analfabetismo",
+    "dimension": "Educación",
+    "pearson": 0.69,
+    "spearman": 0.67
+  },
+  {
+    "variable": "tasa_dependencia",
+    "dimension": "Trabajo",
+    "pearson": 0.69,
+    "spearman": 0.66
+  },
+  {
+    "variable": "pisos_inadecuados",
+    "dimension": "Vivienda y servicios",
+    "pearson": 0.67,
+    "spearman": 0.72
+  },
+  {
+    "variable": "trabajo_informal",
+    "dimension": "Trabajo",
+    "pearson": 0.64,
+    "spearman": 0.63
+  },
+  {
+    "variable": "eliminacion_excretas",
+    "dimension": "Vivienda y servicios",
+    "pearson": 0.53,
+    "spearman": 0.59
+  },
+  {
+    "variable": "inasistencia_escolar",
+    "dimension": "Niñez y juventud",
+    "pearson": 0.52,
+    "spearman": 0.5
+  },
+  {
+    "variable": "rezago_escolar",
+    "dimension": "Niñez y juventud",
+    "pearson": 0.52,
+    "spearman": 0.51
+  },
+  {
+    "variable": "trabajo_infantil",
+    "dimension": "Niñez y juventud",
+    "pearson": 0.35,
+    "spearman": 0.42
+  },
+  {
+    "variable": "hacinamiento_critico",
+    "dimension": "Vivienda y servicios",
+    "pearson": 0.3,
+    "spearman": 0.23
+  },
+  {
+    "variable": "barreras_acceso_salud",
+    "dimension": "Salud",
+    "pearson": 0.07,
+    "spearman": -0.03
+  },
+  {
+    "variable": "paredes_inadecuadas",
+    "dimension": "Vivienda y servicios",
+    "pearson": 0.06,
+    "spearman": 0.13
+  },
+  {
+    "variable": "barreras_primera_infancia",
+    "dimension": "Niñez y juventud",
+    "pearson": 0.05,
+    "spearman": 0.11
+  },
+  {
+    "variable": "sin_aseguramiento_salud",
+    "dimension": "Salud",
+    "pearson": -0.35,
+    "spearman": -0.26
+  }
+]

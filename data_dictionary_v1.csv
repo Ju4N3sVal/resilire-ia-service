@@ -1,0 +1,18 @@
+variable,tipo,unidad,dimension,fuente,rol_en_modelo
+analfabetismo,float,% de hogares (0-100),Educación,DANE CNPV 2018,Insumo de segmentación (estandarizado)
+bajo_logro_educativo,float,% de hogares (0-100),Educación,DANE CNPV 2018,Insumo de segmentación (estandarizado)
+barreras_primera_infancia,float,% de hogares (0-100),Niñez y juventud,DANE CNPV 2018,Insumo de segmentación (estandarizado)
+inasistencia_escolar,float,% de hogares (0-100),Niñez y juventud,DANE CNPV 2018,Insumo de segmentación (estandarizado)
+rezago_escolar,float,% de hogares (0-100),Niñez y juventud,DANE CNPV 2018,Insumo de segmentación (estandarizado)
+trabajo_infantil,float,% de hogares (0-100),Niñez y juventud,DANE CNPV 2018,Insumo de segmentación (estandarizado)
+barreras_acceso_salud,float,% de hogares (0-100),Salud,DANE CNPV 2018,Insumo de segmentación (estandarizado)
+sin_aseguramiento_salud,float,% de hogares (0-100),Salud,DANE CNPV 2018,Insumo de segmentación (estandarizado)
+tasa_dependencia,float,% de hogares (0-100),Trabajo,DANE CNPV 2018,Insumo de segmentación (estandarizado)
+trabajo_informal,float,% de hogares (0-100),Trabajo,DANE CNPV 2018,Insumo de segmentación (estandarizado)
+hacinamiento_critico,float,% de hogares (0-100),Vivienda y servicios,DANE CNPV 2018,Insumo de segmentación (estandarizado)
+eliminacion_excretas,float,% de hogares (0-100),Vivienda y servicios,DANE CNPV 2018,Insumo de segmentación (estandarizado)
+paredes_inadecuadas,float,% de hogares (0-100),Vivienda y servicios,DANE CNPV 2018,Insumo de segmentación (estandarizado)
+pisos_inadecuados,float,% de hogares (0-100),Vivienda y servicios,DANE CNPV 2018,Insumo de segmentación (estandarizado)
+sin_fuente_agua_mejorada,float,% de hogares (0-100),Vivienda y servicios,DANE CNPV 2018,Insumo de segmentación (estandarizado)
+ipm,float,% de hogares (0-100),Índice,DANE CNPV 2018,Excluido como insumo (matriz de fuga); solo interpretación
+codigo,texto (5),,Identificador,DANE DIVIPOLA,Excluido de X; identificador

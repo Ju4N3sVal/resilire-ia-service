@@ -1,0 +1,359 @@
+[
+  {
+    "cluster_id": 0,
+    "n_municipios": 10,
+    "ipm_medio_interpretativo": 17.58,
+    "ipm_rango": [
+      11.0,
+      27.0
+    ],
+    "privaciones_media": {
+      "analfabetismo": 6.76,
+      "bajo_logro_educativo": 43.04,
+      "barreras_primera_infancia": 1.7,
+      "inasistencia_escolar": 2.63,
+      "rezago_escolar": 13.7,
+      "trabajo_infantil": 0.95,
+      "barreras_acceso_salud": 4.62,
+      "sin_aseguramiento_salud": 16.02,
+      "tasa_dependencia": 27.64,
+      "trabajo_informal": 80.43,
+      "hacinamiento_critico": 6.98,
+      "eliminacion_excretas": 6.46,
+      "paredes_inadecuadas": 0.72,
+      "pisos_inadecuados": 1.85,
+      "sin_fuente_agua_mejorada": 11.49
+    },
+    "rasgos_distintivos": [
+      {
+        "variable": "bajo_logro_educativo",
+        "media_grupo": 43.04,
+        "media_santander": 69.91,
+        "z": -2.18
+      },
+      {
+        "variable": "analfabetismo",
+        "media_grupo": 6.76,
+        "media_santander": 16.2,
+        "z": -1.72
+      },
+      {
+        "variable": "trabajo_informal",
+        "media_grupo": 80.43,
+        "media_santander": 87.97,
+        "z": -1.45
+      },
+      {
+        "variable": "sin_aseguramiento_salud",
+        "media_grupo": 16.02,
+        "media_santander": 11.91,
+        "z": 1.22
+      }
+    ],
+    "municipios": [
+      "FLORIDABLANCA",
+      "SAN GIL",
+      "BUCARAMANGA",
+      "SOCORRO",
+      "PIEDECUESTA",
+      "GIRÓN",
+      "MÁLAGA",
+      "CALIFORNIA",
+      "BARBOSA",
+      "LEBRIJA"
+    ]
+  },
+  {
+    "cluster_id": 1,
+    "n_municipios": 39,
+    "ipm_medio_interpretativo": 35.32,
+    "ipm_rango": [
+      23.8,
+      48.1
+    ],
+    "privaciones_media": {
+      "analfabetismo": 16.81,
+      "bajo_logro_educativo": 71.66,
+      "barreras_primera_infancia": 1.24,
+      "inasistencia_escolar": 3.01,
+      "rezago_escolar": 13.62,
+      "trabajo_infantil": 1.63,
+      "barreras_acceso_salud": 4.37,
+      "sin_aseguramiento_salud": 10.62,
+      "tasa_dependencia": 38.33,
+      "trabajo_informal": 88.17,
+      "hacinamiento_critico": 6.63,
+      "eliminacion_excretas": 12.33,
+      "paredes_inadecuadas": 0.83,
+      "pisos_inadecuados": 11.01,
+      "sin_fuente_agua_mejorada": 24.23
+    },
+    "rasgos_distintivos": [
+      {
+        "variable": "rezago_escolar",
+        "media_grupo": 13.62,
+        "media_santander": 15.78,
+        "z": -0.57
+      },
+      {
+        "variable": "inasistencia_escolar",
+        "media_grupo": 3.01,
+        "media_santander": 4.1,
+        "z": -0.5
+      },
+      {
+        "variable": "barreras_primera_infancia",
+        "media_grupo": 1.24,
+        "media_santander": 1.64,
+        "z": -0.44
+      },
+      {
+        "variable": "hacinamiento_critico",
+        "media_grupo": 6.63,
+        "media_santander": 8.0,
+        "z": -0.39
+      }
+    ],
+    "municipios": [
+      "PINCHOTE",
+      "PUENTE NACIONAL",
+      "CHARALÁ",
+      "ZAPATOCA",
+      "PALMAS DEL SOCORRO",
+      "VILLANUEVA",
+      "BARICHARA",
+      "CONTRATACIÓN",
+      "GÜEPSA",
+      "GUAPOTÁ",
+      "PÁRAMO",
+      "OIBA",
+      "VETAS",
+      "CEPITÁ",
+      "VÉLEZ",
+      "PALMAR",
+      "EL GUACAMAYO",
+      "SAN MIGUEL",
+      "CABRERA",
+      "SAN VICENTE DE CHUCURÍ",
+      "CHARTA",
+      "CAPITANEJO",
+      "CURITÍ",
+      "VALLE DE SAN JOSÉ",
+      "SUAITA",
+      "MATANZA",
+      "OCAMONTE",
+      "GUADALUPE",
+      "GUAVATÁ",
+      "ARATOCA",
+      "JESÚS MARÍA",
+      "AGUADA",
+      "GALÁN",
+      "SAN ANDRÉS",
+      "CHIPATÁ",
+      "LOS SANTOS",
+      "CHIMA",
+      "HATO",
+      "ALBANIA"
+    ]
+  },
+  {
+    "cluster_id": 2,
+    "n_municipios": 7,
+    "ipm_medio_interpretativo": 37.86,
+    "ipm_rango": [
+      26.4,
+      45.7
+    ],
+    "privaciones_media": {
+      "analfabetismo": 15.57,
+      "bajo_logro_educativo": 64.31,
+      "barreras_primera_infancia": 2.51,
+      "inasistencia_escolar": 5.76,
+      "rezago_escolar": 20.11,
+      "trabajo_infantil": 1.61,
+      "barreras_acceso_salud": 7.56,
+      "sin_aseguramiento_salud": 17.27,
+      "tasa_dependencia": 36.44,
+      "trabajo_informal": 80.86,
+      "hacinamiento_critico": 11.77,
+      "eliminacion_excretas": 16.56,
+      "paredes_inadecuadas": 6.8,
+      "pisos_inadecuados": 13.11,
+      "sin_fuente_agua_mejorada": 17.01
+    },
+    "rasgos_distintivos": [
+      {
+        "variable": "paredes_inadecuadas",
+        "media_grupo": 6.8,
+        "media_santander": 1.33,
+        "z": 2.61
+      },
+      {
+        "variable": "sin_aseguramiento_salud",
+        "media_grupo": 17.27,
+        "media_santander": 11.91,
+        "z": 1.6
+      },
+      {
+        "variable": "trabajo_informal",
+        "media_grupo": 80.86,
+        "media_santander": 87.97,
+        "z": -1.37
+      },
+      {
+        "variable": "rezago_escolar",
+        "media_grupo": 20.11,
+        "media_santander": 15.78,
+        "z": 1.16
+      }
+    ],
+    "municipios": [
+      "BARRANCABERMEJA",
+      "CIMITARRA",
+      "PUERTO PARRA",
+      "SABANA DE TORRES",
+      "PUERTO WILCHES",
+      "BETULIA",
+      "EL PLAYÓN"
+    ]
+  },
+  {
+    "cluster_id": 3,
+    "n_municipios": 20,
+    "ipm_medio_interpretativo": 45.94,
+    "ipm_rango": [
+      32.0,
+      58.9
+    ],
+    "privaciones_media": {
+      "analfabetismo": 19.05,
+      "bajo_logro_educativo": 78.96,
+      "barreras_primera_infancia": 2.3,
+      "inasistencia_escolar": 6.65,
+      "rezago_escolar": 17.99,
+      "trabajo_infantil": 3.59,
+      "barreras_acceso_salud": 2.61,
+      "sin_aseguramiento_salud": 11.8,
+      "tasa_dependencia": 37.02,
+      "trabajo_informal": 91.54,
+      "hacinamiento_critico": 6.9,
+      "eliminacion_excretas": 24.79,
+      "paredes_inadecuadas": 1.03,
+      "pisos_inadecuados": 14.38,
+      "sin_fuente_agua_mejorada": 41.72
+    },
+    "rasgos_distintivos": [
+      {
+        "variable": "inasistencia_escolar",
+        "media_grupo": 6.65,
+        "media_santander": 4.1,
+        "z": 1.16
+      },
+      {
+        "variable": "trabajo_infantil",
+        "media_grupo": 3.59,
+        "media_santander": 2.0,
+        "z": 1.11
+      },
+      {
+        "variable": "eliminacion_excretas",
+        "media_grupo": 24.79,
+        "media_santander": 14.76,
+        "z": 0.94
+      },
+      {
+        "variable": "bajo_logro_educativo",
+        "media_grupo": 78.96,
+        "media_santander": 69.91,
+        "z": 0.73
+      }
+    ],
+    "municipios": [
+      "ENCINO",
+      "CONFINES",
+      "LA PAZ",
+      "LA BELLEZA",
+      "RIONEGRO",
+      "SAN JOAQUÍN",
+      "SURATÁ",
+      "SIMACOTA",
+      "BOLÍVAR",
+      "TONA",
+      "SUCRE",
+      "SANTA HELENA DEL OPÓN",
+      "LANDÁZURI",
+      "SAN BENITO",
+      "GÁMBITA",
+      "COROMORO",
+      "JORDÁN",
+      "SANTA BÁRBARA",
+      "EL PEÑÓN",
+      "EL CARMEN DE CHUCURI"
+    ]
+  },
+  {
+    "cluster_id": 4,
+    "n_municipios": 11,
+    "ipm_medio_interpretativo": 49.53,
+    "ipm_rango": [
+      35.3,
+      60.8
+    ],
+    "privaciones_media": {
+      "analfabetismo": 17.82,
+      "bajo_logro_educativo": 75.23,
+      "barreras_primera_infancia": 1.24,
+      "inasistencia_escolar": 3.64,
+      "rezago_escolar": 18.52,
+      "trabajo_infantil": 1.62,
+      "barreras_acceso_salud": 6.25,
+      "sin_aseguramiento_salud": 9.49,
+      "tasa_dependencia": 49.45,
+      "trabajo_informal": 92.15,
+      "hacinamiento_critico": 13.37,
+      "eliminacion_excretas": 11.57,
+      "paredes_inadecuadas": 0.75,
+      "pisos_inadecuados": 28.08,
+      "sin_fuente_agua_mejorada": 46.83
+    },
+    "rasgos_distintivos": [
+      {
+        "variable": "hacinamiento_critico",
+        "media_grupo": 13.37,
+        "media_santander": 8.0,
+        "z": 1.52
+      },
+      {
+        "variable": "pisos_inadecuados",
+        "media_grupo": 28.08,
+        "media_santander": 13.06,
+        "z": 1.37
+      },
+      {
+        "variable": "tasa_dependencia",
+        "media_grupo": 49.45,
+        "media_santander": 38.05,
+        "z": 1.26
+      },
+      {
+        "variable": "sin_fuente_agua_mejorada",
+        "media_grupo": 46.83,
+        "media_santander": 29.06,
+        "z": 1.03
+      }
+    ],
+    "municipios": [
+      "ENCISO",
+      "CONCEPCIÓN",
+      "CERRITO",
+      "SAN JOSÉ DE MIRANDA",
+      "MOGOTES",
+      "MACARAVITA",
+      "MOLAGAVITA",
+      "ONZAGA",
+      "FLORIÁN",
+      "GUACA",
+      "CARCASÍ"
+    ]
+  }
+]
