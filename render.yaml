@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: resilire-ia
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: RESILIRE_CORS_ORIGINS
+        value: https://resilire-web.web.app,https://resilire-web.firebaseapp.com,http://localhost:5173
