@@ -1,5 +1,5 @@
 """
-RESILIRE — Microservicio de IA (Sprint 5)
+RESILIRE — Microservicio de IA (Sprint 5 · v1.2)
 
 Expone el modelo de segmentación territorial versionado (baseline_kmeans_v1)
 mediante una API REST /api/v1 documentada con OpenAPI (Swagger en /docs).
@@ -16,6 +16,8 @@ Contratos alineados con el documento de arquitectura (sección 6.5):
   GET  /api/v1/variables             catálogo de las 15 privaciones (dimensión, etiqueta, estadísticas)
   POST /api/v1/scenarios             compara un escenario base contra uno alternativo (Sprint 5, RF-13)
   GET  /api/v1/priorities            priorización orientativa de municipios (Sprint 5, RF-12)
+  POST /api/v1/datasets/validate     valida una carga CSV/XLSX y devuelve su perfil de calidad (RF-03, RNF-04)
+  GET  /api/v1/auth/check            verifica el token de Firebase y el rol (RF-17, RNF-10)
 
 Toda salida es orientativa y no vinculante (RF-12, RNF-21).
 """
@@ -30,7 +32,7 @@ from datetime import datetime, timezone
 
 import joblib
 import numpy as np
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, File, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -44,7 +46,7 @@ ORIGINS = [o.strip() for o in os.getenv(
 ADVERTENCIA = ("Resultado orientativo y no vinculante. La segmentación agrupa municipios por similitud de "
                "privaciones (CNPV 2018, línea base); no predice el IPM, no es causal y no aplica a hogares o personas.")
 
-app = FastAPI(title="RESILIRE · Microservicio de IA", version="1.1.0",
+app = FastAPI(title="RESILIRE · Microservicio de IA", version="1.2.0",
               description="Segmentación territorial de vulnerabilidad multidimensional — Santander (CNPV 2018).")
 app.add_middleware(CORSMiddleware, allow_origins=ORIGINS, allow_methods=["GET", "POST"], allow_headers=["*"],
                    expose_headers=["X-Correlation-ID"])
@@ -115,14 +117,22 @@ def model_card(request: Request):
 
 
 @app.get("/api/v1/segments", tags=["Segmentación"])
-def segments(request: Request, cluster_id: int | None = None):
+def segments(request: Request, cluster_id: int | None = None, detalle: bool = False):
+    """Municipios con su grupo. Con `detalle=true` incluye las 15 privaciones de cada municipio."""
     if (e := _require_model(request)): return e
     rows = STATE["segments"]
     if cluster_id is not None:
         rows = [r for r in rows if int(r["cluster_id"]) == cluster_id]
+    feats = STATE["meta"]["features"]
+
+    def item(r):
+        it = {"codigo": r["codigo"], "municipio": r.get("municipio"), "ipm": float(r["ipm"]),
+              "cluster_id": int(r["cluster_id"]), "silhouette": float(r["silhouette_municipio"])}
+        if detalle:
+            it["privaciones"] = {f: float(r[f]) for f in feats}
+        return it
     return {"model_version_id": STATE["meta"]["model_version_id"], "total": len(rows),
-            "items": [{"codigo": r["codigo"], "municipio": r.get("municipio"), "ipm": float(r["ipm"]),
-                       "cluster_id": int(r["cluster_id"]), "silhouette": float(r["silhouette_municipio"])} for r in rows],
+            "items": [item(r) for r in rows],
             "advertencia": ADVERTENCIA}
 
 
@@ -394,3 +404,172 @@ def priorities(request: Request, cluster_id: int | None = None, limit: int = 87)
                          "Línea de revisión: dimensión con mayor proporción de privaciones críticas."),
             "advertencia": ("Priorización orientativa y no vinculante (RF-12). Las líneas de revisión señalan qué oferta "
                             "revisar con la entidad competente; no son prescripciones ni sustituyen el análisis sectorial.")}
+
+
+# --------------------------------------------------------------------------- Sprint 5 · v1.2
+# Verificación de sesión (token de Firebase) y validación real de cargas de datos.
+
+import hashlib
+import io
+import unicodedata
+
+import pandas as pd
+
+FIREBASE_PROJECT = os.getenv("RESILIRE_FIREBASE_PROJECT", "resilire-web")
+REQUIRE_AUTH = os.getenv("RESILIRE_REQUIRE_AUTH", "true").lower() != "false"
+ROLES = {kv.split(":")[0].strip().lower(): kv.split(":")[1].strip() for kv in os.getenv(
+    "RESILIRE_ROLES",
+    "admin@resilire.co:administrador,analista@resilire.co:analista,comite@resilire.co:comite_ia,consultor@resilire.co:consultor"
+).split(",") if ":" in kv}
+MAX_BYTES = 5 * 1024 * 1024
+
+
+def _verify_firebase(token: str) -> dict:
+    """Verifica la firma, la audiencia y la vigencia del ID token de Firebase con las llaves públicas de Google."""
+    from google.auth.transport import requests as g_requests
+    from google.oauth2 import id_token
+    return id_token.verify_firebase_token(token, g_requests.Request(), audience=FIREBASE_PROJECT)
+
+
+def _session(request: Request, roles: tuple[str, ...] | None = None):
+    """Devuelve (sesion, None) o (None, respuesta de error uniforme)."""
+    if not REQUIRE_AUTH:
+        return {"email": "sin-autenticacion@local", "rol": "administrador"}, None
+    auth = request.headers.get("Authorization", "")
+    if not auth.startswith("Bearer "):
+        return None, error(request, 401, "AUTH_REQUIRED", "Inicie sesión para usar esta operación.",
+                           [{"field": "Authorization", "issue": "falta el token de Firebase"}])
+    try:
+        claims = app.state.verify_firebase(auth[7:])
+    except Exception as e:  # firma, audiencia o vigencia inválidas
+        return None, error(request, 401, "AUTH_INVALID", "La sesión no es válida o expiró. Vuelva a iniciar sesión.",
+                           [{"issue": type(e).__name__}])
+    email = (claims.get("email") or "").lower()
+    rol = ROLES.get(email, "consultor")
+    if roles and rol not in roles:
+        return None, error(request, 403, "FORBIDDEN", "Su rol no tiene permiso para esta operación.",
+                           [{"field": "rol", "issue": rol}])
+    return {"email": email, "rol": rol, "uid": claims.get("user_id") or claims.get("sub")}, None
+
+
+app.state.verify_firebase = _verify_firebase  # punto de inyección para pruebas
+
+
+@app.get("/api/v1/auth/check", tags=["Seguridad"])
+def auth_check(request: Request):
+    """Verifica el token de Firebase enviado en Authorization y devuelve el rol con el que opera el servicio."""
+    ses, err = _session(request)
+    if err: return err
+    return {"autenticado": True, "email": ses["email"], "rol": ses["rol"], "verificacion": "firebase" if REQUIRE_AUTH else "desactivada"}
+
+
+def _norm(c: str) -> str:
+    c = unicodedata.normalize("NFD", str(c)).encode("ascii", "ignore").decode().strip().lower()
+    return "_".join(c.replace("-", " ").replace(".", " ").split())
+
+
+ALIAS = {"codigo_municipio": "codigo", "cod_mpio": "codigo", "divipola": "codigo", "codigo_dane": "codigo", "mpio": "municipio",
+         "nombre_municipio": "municipio", "sin_acceso_a_fuente_de_agua_mejorada": "sin_fuente_agua_mejorada"}
+
+
+@app.post("/api/v1/datasets/validate", tags=["Datos"])
+async def validate_dataset(request: Request, file: UploadFile = File(...)):
+    """Valida una carga municipal (CSV o XLSX) contra el esquema de las 15 privaciones y devuelve su perfil de calidad.
+    No guarda el archivo: devuelve la decisión, las reglas evaluadas y la huella SHA-256 para trazabilidad."""
+    ses, err = _session(request, ("analista", "administrador"))
+    if err: return err
+    if (e := _require_model(request)): return e
+    raw = await file.read()
+    name = file.filename or "archivo"
+    if len(raw) == 0:
+        return error(request, 422, "DATA_EMPTY", "El archivo está vacío.", [{"field": "file", "issue": name}])
+    if len(raw) > MAX_BYTES:
+        return error(request, 413, "DATA_TOO_LARGE", "El archivo supera 5 MB.", [{"field": "file", "issue": f"{len(raw)} bytes"}])
+    ext = name.lower().rsplit(".", 1)[-1]
+    try:
+        if ext in ("xlsx", "xls"):
+            df = pd.read_excel(io.BytesIO(raw), dtype=str)
+        elif ext in ("csv", "txt"):
+            try:
+                df = pd.read_csv(io.BytesIO(raw), dtype=str, sep=None, engine="python", encoding="utf-8-sig")
+            except UnicodeDecodeError:
+                df = pd.read_csv(io.BytesIO(raw), dtype=str, sep=None, engine="python", encoding="latin-1")
+        else:
+            return error(request, 415, "DATA_FORMAT_UNSUPPORTED", "Formato no admitido. Use CSV o XLSX.", [{"field": "file", "issue": ext}])
+    except Exception as e:
+        return error(request, 422, "DATA_UNREADABLE", "No fue posible leer el archivo.", [{"field": "file", "issue": type(e).__name__}])
+
+    feats = STATE["meta"]["features"]
+    df.columns = [ALIAS.get(_norm(c), _norm(c)) for c in df.columns]
+    checks, critical = [], False
+
+    def add(regla, ok, detalle, nivel="error"):
+        nonlocal critical
+        estado = "ok" if ok else nivel
+        if estado == "error":
+            critical = True
+        checks.append({"regla": regla, "resultado": estado, "detalle": detalle})
+
+    required = ["codigo"] + feats
+    missing = [c for c in required if c not in df.columns]
+    add("Estructura: columnas obligatorias", not missing,
+        "Están el código DANE y las 15 privaciones." if not missing else "Faltan: " + ", ".join(missing))
+    extra = [c for c in df.columns if c not in required + ["municipio", "ipm"]]
+    add("Estructura: columnas no previstas", not extra, "Sin columnas adicionales." if not extra else "Se ignorarán: " + ", ".join(extra[:10]), "advertencia")
+    n = int(len(df))
+    add("Contenido: filas", n > 0, f"{n} filas.")
+    prof = {}
+    if "codigo" in df.columns and n:
+        cod = df["codigo"].fillna("").astype(str).str.strip().str.replace(r"\.0$", "", regex=True).str.zfill(5)
+        bad = int((~cod.str.fullmatch(r"\d{5}")).sum())
+        add("Validez: formato del código DANE (5 dígitos)", bad == 0, "Todos los códigos son válidos." if bad == 0 else f"{bad} códigos inválidos.")
+        dup = int(cod[cod.duplicated()].nunique())
+        add("Unicidad: un registro por municipio", dup == 0, "Sin códigos repetidos." if dup == 0 else f"{dup} códigos repetidos.")
+        fuera = int((~cod.str.startswith("68")).sum())
+        add("Cobertura: municipios de Santander (código 68)", fuera == 0,
+            "Todos pertenecen a Santander." if fuera == 0 else f"{fuera} filas fuera de Santander; el modelo solo cubre Santander.", "advertencia")
+        ref = {r["codigo"]: r for r in STATE["segments"]}
+        cubiertos = int(cod.isin(list(ref)).sum())
+        prof["municipios_reconocidos"] = cubiertos
+        add("Cobertura: municipios reconocidos en el universo de 87", cubiertos > 0,
+            f"{cubiertos} de {n} filas coinciden con los 87 municipios de referencia.", "advertencia")
+    else:
+        cod = None
+    present = [f for f in feats if f in df.columns]
+    if present and n:
+        num = df[present].apply(lambda col: pd.to_numeric(col.astype(str).str.replace(",", ".", regex=False).str.strip().replace({"": None, "nan": None}), errors="coerce"))
+        nonnum = int(sum(((num[c].isna()) & df[c].notna() & (df[c].astype(str).str.strip() != "")).sum() for c in present))
+        add("Validez: valores numéricos", nonnum == 0, "Todos los valores son numéricos." if nonnum == 0 else f"{nonnum} valores no numéricos.")
+        falt = int(sum((df[c].isna() | (df[c].astype(str).str.strip() == "")).sum() for c in present))
+        total = n * len(present)
+        comp = round(100 * (1 - falt / total), 2) if total else 0.0
+        prof["completitud_pct"] = comp
+        add("Completitud: celdas con dato", falt == 0, f"{comp} % completo ({falt} celdas vacías de {total}).", "error" if comp < 95 else "advertencia")
+        fuera = int(((num < 0) | (num > 100)).sum().sum())
+        add("Validez: rango 0 a 100 % de hogares", fuera == 0, "Todos los valores están en rango." if fuera == 0 else f"{fuera} valores fuera de rango.")
+        if cod is not None and not missing:
+            ref = {r["codigo"]: r for r in STATE["segments"]}
+            diffs = []
+            for i, c in enumerate(cod):
+                if c in ref:
+                    for f in feats:
+                        v = num.iloc[i][f]
+                        if pd.notna(v):
+                            diffs.append(abs(float(v) - float(ref[c][f])))
+            if diffs:
+                mx = round(max(diffs), 2)
+                prof["max_diferencia_vs_cnpv2018"] = mx
+                add("Consistencia: frente a la línea base CNPV 2018", True,
+                    "Coincide con la línea base." if mx <= 0.05 else f"Diferencia máxima de {mx} p.p.: corresponde a otra versión o periodo.")
+    decision = "rechazada" if critical else "aceptada"
+    return {
+        "process_id": f"load-{uuid.uuid4().hex[:10]}",
+        "archivo": name, "bytes": len(raw), "sha256": hashlib.sha256(raw).hexdigest(),
+        "filas": n, "columnas": int(df.shape[1]), "decision": decision,
+        "perfil": prof, "reglas": checks,
+        "usuario": ses["email"], "rol": ses["rol"],
+        "nota": ("Validación en memoria: el archivo no se almacena ni reemplaza la línea base del modelo. "
+                 "Una carga aceptada queda lista para versionarse; una rechazada no avanza (RF-03)."),
+        "fecha": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "correlationId": _cid(request),
+    }

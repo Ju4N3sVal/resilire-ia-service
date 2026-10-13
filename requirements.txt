@@ -5,3 +5,6 @@ pandas==3.0.2
 numpy
 openpyxl
 joblib
+python-multipart==0.0.32
+google-auth==2.62.0
+requests==2.34.2
